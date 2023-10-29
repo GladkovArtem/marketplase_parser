@@ -54,3 +54,15 @@ class UserAdminView(CustomView):
 
 
 admin.add_view(UserAdminView(models.User, db.session, category="Models"))
+
+
+class UrlAdminView(CustomView):
+    column_searchable_list = ("link",)
+    column_filters = ("link",)
+    column_editable_list = ("link",)
+    can_create = True
+    can_edit = True
+    can_delete = True
+
+
+admin.add_view(UrlAdminView(models.Url, db.session, category="Models"))

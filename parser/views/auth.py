@@ -105,6 +105,7 @@ def register():
             last_name=form.last_name.data,
             username=form.username.data,
             email=form.email.data,
+            phone=form.phone.data,
             is_staff=False,
             password_=generate_password_hash(form.password_.data),
         )

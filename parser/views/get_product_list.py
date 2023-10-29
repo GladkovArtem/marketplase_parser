@@ -1,4 +1,4 @@
-from flask import Blueprint, render_template, request, current_app, redirect, url_for
+from flask import Blueprint, render_template, request, current_app, redirect, url_for, flash
 from flask_login import login_required, current_user
 from sqlalchemy.exc import IntegrityError
 from sqlalchemy.orm import joinedload
@@ -7,6 +7,7 @@ from parser.models.database import db
 from parser.models import User, Url
 from parser.forms.product import CreateProductForm
 import parser_main_function
+import time
 
 
 get_product_list_app = Blueprint("get_product_list_app", __name__)
@@ -23,11 +24,9 @@ def create_request():
         max_price = form.max_price.data
         url = form.link.data
         parser_main_function.parser(url=url, low_price=low_price, top_price=max_price)
-
+        flash('Загрузка выполнена, файл вы можете найти в каталоге "загрузки"!  Оставьте отзыв или комментарий о работе сервиса!')
         return redirect(url_for('get_product_list_app.create'))
 
-    return render_template("product/create.html", form=form, error = 'Загрузка выполнена, файл вы можете найти в каталоге "загрузки"!  Оставьте отзыв или комментарий о работе сервиса!')
-
-
+    return render_template("product/create.html", form=form, error = error)
 
 

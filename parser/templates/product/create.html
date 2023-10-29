@@ -12,12 +12,17 @@
             {{ error }}
         </div>
     {% endif %}
+                {% for msg in get_flashed_messages() %}
+<div class="flash">{{msg}}</div>
+{% endfor %}
             {% if current_user.is_authenticated %}
     <form method="post">
     {{ form.csrf_token }}
 
     {% for field_name in ['low_price','max_price','link'] %}
     {% set field = form[field_name] %}
+
+
     <div class="my-3">
         {{ field.label(class="form-label") }}
         {{ field(class="form-control") }}
