@@ -104,6 +104,7 @@ def parser(url: str, low_price: int = 1, top_price: int = 1000000, discount: int
     """основная функция"""
     # получаем данные по заданному каталогу
     catalog_data = get_data_category(get_catalogs_wb())
+
     try:
         # поиск введенной категории в общем каталоге
         category = search_category_in_catalog(url=url, catalog_list=catalog_data)
