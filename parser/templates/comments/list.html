@@ -1,0 +1,23 @@
+{% extends 'base.html' %}
+
+{% block title %}
+    Comments list
+{% endblock %}
+
+{% block body %}
+    <h1>Комментарии и отзывы</h1>
+    <div>
+        <ul>
+        {% for comment in comments %}
+            <li>
+                <a href="{{ url_for('comments_app.details', comment_id=comment.id) }}">{{
+            comment.body }}</a>
+            автор {{ comment.user.username }}
+        <div>Опубликовано {{ comment.dt_created }}</div>
+            </li>
+        {% endfor %}
+        </ul>
+        <hr>
+        <a href="{{ url_for('comments_app.create') }}">Напишите нам</a>
+    </div>
+{% endblock %}

@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <script
+            src="{{ url_for('static', filename='js/bootstrap.bundle.min.js') }}">
+    </script>
+    <link href="{{ url_for('static', filename='css/bootstrap.min.css') }}" rel="stylesheet">
+    <title>
+        {% block title %}
+            Base
+        {% endblock %}
+    </title>
+</head>
+<body>
+    <nav class="navbar navbar-expand-md navbar-light bg-light">
+        <div class="container-fluid">
+            <a class="navbar-brand" href="{{ url_for('index') }}">О компании</a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNavAltMarkup" aria-controls="navbarNavAltMarkup" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+            </button>
+             <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
+                <div class="navbar-nav ">
+                    {% if current_user.is_authenticated %}
+                    {% for (endpoint, label) in [
+                            ('users_app.list', 'Пользователи'),
+                            ('comments_app.list', 'Комментарии и отзывы'),
+                            ('urls_app.list', 'Доступные каталоги товара'),
+                            ('get_product_list_app.create', 'Получить список товара'),
+                        ] %}
+                        <a href="{{ url_for(endpoint) }}" class="nav-link {% if request.endpoint == endpoint -%}active{%- endif %}">
+                         {{ label }}
+                        </a>
+                    {% endfor %}
+                        <a class="nav-link" href="{{ url_for('auth.logout') }}">Выйти из учетной записи {{ current_user.username }}</a>
+
+                    {% else %}
+                    {% for (endpoint, label) in [('comments_app.list', 'Комментарии и отзывы'),('urls_app.list', 'Доступные каталоги товара'), ('auth.register','Зарегистрироваться')] %}
+                        <a href="{{ url_for(endpoint) }}" class="nav-link {% if request.endpoint == endpoint -%}active{%- endif %}">
+                            {{ label }}
+                        </a>
+                    {% endfor %}
+                    <a href="{{ url_for('auth.login') }}"
+                    class="nav-link {% if request.endpoint == 'auth.login' -%}active{%- endif %}">
+                    Войти
+                    </a>
+                    {% endif %}
+                </div>
+            </div>
+        </div>
+    </nav>
+    <div class="container">
+      {% block body %}
+         Hello base!
+      {% endblock %}
+    </div>
+</body>
+</html>

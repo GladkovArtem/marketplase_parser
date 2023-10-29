@@ -1,0 +1,23 @@
+{% extends 'base.html' %}
+
+{% block title %}
+  Comment #{{ comment.id }}: {{ comment.title }}
+{% endblock %}
+
+{% block body %}
+  <h1>{{ comment.title }}</h1>
+  <div>
+    <p>{{ comment.body }}</p>
+    <div>Опубликовано {{ comment.dt_created }}</div>
+    <div>by {{ comment.user.username }}</div>
+  </div>
+  {% if comment.tag %}
+  <div>Tags:</div>
+    <ul>
+      {% for tag in comment.tag %}
+    <li>{{ tag.name }}</li>
+  {% endfor %}
+  </ul>
+  {% endif %}
+
+{% endblock %}

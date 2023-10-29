@@ -1,0 +1,25 @@
+{% extends 'base.html' %}
+
+{% block title %}
+  Url list
+{% endblock %}
+
+{% block body %}
+  <h1></h1>
+  <div>
+    {% if urls %}
+      <ul>
+        {% for url in urls %}
+        <li>
+          <a href="{{ url.link}}"> {{ url.link}} </a>
+        </li>
+        {% endfor %}
+      </ul>
+    {% else %}
+      <h3>Пока нет доступных ссылок, мы работаем над этим</h3>
+    {% endif %}
+       {% if current_user.is_anonymous%}
+        Для того, чтобы воспользоваться всеми возможостями сервиса, пожалуйста, авторизуйтесь или пройдите регистрацию!
+       {% endif %}
+  </div>
+{% endblock %}

@@ -1,0 +1,28 @@
+{% extends 'base.html' %}
+
+{% block title %}
+    Create comment
+{% endblock %}
+
+{% block body %}
+    <h1>Написать комментарий</h1>
+    <div>
+    {% if error %}
+        <div class="alert alert-danger" role="alert">
+            {{ error }}
+        </div>
+    {% endif %}
+    <form method="post">
+    {{ form.csrf_token }}
+
+    {% for field_name in ['title', 'body', 'tag'] %}
+    {% set field = form[field_name] %}
+    <div class="my-3">
+        {{ field.label(class="form-label") }}
+        {{ field(class="form-control") }}
+    </div>
+    {% endfor %}
+        {{ form.submit(class="btn btn-primary my-3") }}
+    </form>
+</div>
+{% endblock %}
