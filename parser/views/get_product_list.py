@@ -1,11 +1,6 @@
-from flask import Blueprint, render_template, request, current_app, redirect, url_for, flash
-from flask_login import login_required, current_user
-from sqlalchemy.exc import IntegrityError
-from sqlalchemy.orm import joinedload
-from werkzeug.exceptions import NotFound
-from parser.models.database import db
-from sqlalchemy import select
-from parser.models import User, Url
+from flask import Blueprint, render_template, request, redirect, url_for, flash
+from flask_login import login_required
+from parser.models import Url
 from parser.forms.product import CreateProductForm
 import parser_main_function
 import time
